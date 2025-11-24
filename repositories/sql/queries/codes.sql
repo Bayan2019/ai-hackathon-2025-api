@@ -21,5 +21,5 @@ ORDER BY created_at DESC;
 UPDATE codes
 SET updated_at = CURRENT_TIMESTAMP,
     confirmed = 'TRUE'
-WHERE email = ? AND created_at = ?;
+WHERE email = ? AND code = ? AND created_at = ?;
 --

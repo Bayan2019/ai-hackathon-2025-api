@@ -14,16 +14,17 @@ const confirmCode = `-- name: ConfirmCode :exec
 UPDATE codes
 SET updated_at = CURRENT_TIMESTAMP,
     confirmed = 'TRUE'
-WHERE email = ? AND created_at = ?
+WHERE email = ? AND code = ? AND created_at = ?
 `
 
 type ConfirmCodeParams struct {
 	Email     string
+	Code      string
 	CreatedAt string
 }
 
 func (q *Queries) ConfirmCode(ctx context.Context, arg ConfirmCodeParams) error {
-	_, err := q.db.ExecContext(ctx, confirmCode, arg.Email, arg.CreatedAt)
+	_, err := q.db.ExecContext(ctx, confirmCode, arg.Email, arg.Code, arg.CreatedAt)
 	return err
 }
 

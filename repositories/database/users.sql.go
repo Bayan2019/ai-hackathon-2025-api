@@ -84,3 +84,19 @@ func (q *Queries) GetUsers(ctx context.Context) ([]User, error) {
 	}
 	return items, nil
 }
+
+const isUserRegistered = `-- name: IsUserRegistered :one
+
+SELECT EXISTS (
+    SELECT 1
+    FROM users
+    WHERE email = ?
+)
+`
+
+func (q *Queries) IsUserRegistered(ctx context.Context, email string) (int64, error) {
+	row := q.db.QueryRowContext(ctx, isUserRegistered, email)
+	var column_1 int64
+	err := row.Scan(&column_1)
+	return column_1, err
+}
