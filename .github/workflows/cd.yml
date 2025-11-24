@@ -28,5 +28,5 @@ jobs:
       - name: Install goose
         run: go install github.com/pressly/goose/v3/cmd/goose@latest
 
-      - name: Migration
-        run: ./scripts/migrateUp.sh
+      # - name: Migration
+      #   run: ./scripts/migrateUp.sh
