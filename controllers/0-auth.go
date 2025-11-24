@@ -89,8 +89,8 @@ func (ah *AuthHandlers) MiddlewareAuth(handler authedHandler) http.HandlerFunc {
 	}
 }
 
-// SignInClient godoc
-// @Tags Clients
+// SignIn godoc
+// @Tags Auth
 // @Summary      Login to send the code to phone
 // @Accept       json
 // @Produce      json
@@ -102,7 +102,7 @@ func (ah *AuthHandlers) MiddlewareAuth(handler authedHandler) http.HandlerFunc {
 // @Failure   	 425  {object} views.ErrorResponse "Too Often"
 // @Failure   	 500  {object} views.ErrorResponse "Couldn't query"
 // @Router       /v1/auth [post]
-func (ah *AuthHandlers) SignInClient(w http.ResponseWriter, r *http.Request) {
+func (ah *AuthHandlers) SignIn(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	var signInReq views.SignInRequest
 	err := decoder.Decode(&signInReq)
@@ -158,9 +158,9 @@ func (ah *AuthHandlers) SignInClient(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// SignInClientCode godoc
-// @Tags Clients
-// @Summary      Login or Register to get the code and compare
+// SignInCode godoc
+// @Tags Auth
+// @Summary      Login to get the code and compare
 // @Accept       json
 // @Produce      json
 // @Param request body views.SignInCodeRequest true "LogIn data"
@@ -169,7 +169,7 @@ func (ah *AuthHandlers) SignInClient(w http.ResponseWriter, r *http.Request) {
 // @Failure   	 409  {object} views.ErrorResponse "Conflict of Code"
 // @Failure   	 500  {object} views.ErrorResponse "Couldn't find the user"
 // @Router       /v1/auth [patch]
-func (ah *AuthHandlers) SignInClientCode(w http.ResponseWriter, r *http.Request) {
+func (ah *AuthHandlers) SignInCode(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	var signInReq views.SignInCodeRequest
 	err := decoder.Decode(&signInReq)

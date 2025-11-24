@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/Bayan2019/ai-hackathon-2025-api/configuration"
+	"github.com/Bayan2019/ai-hackathon-2025-api/controllers"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
 	"github.com/joho/godotenv"
@@ -90,6 +91,14 @@ func main() {
 	v1Router := chi.NewRouter()
 
 	if configuration.ApiCfg.DB != nil {
+		authHandlers := controllers.NewAuthHandlers(*configuration.ApiCfg)
+
+		v1Router.Post("/auth", authHandlers.SignIn)
+		v1Router.Patch("/auth", authHandlers.SignInCode)
+
+		usersHandlers := controllers.NewUsersHandlers(*configuration.ApiCfg)
+
+		v1Router.Get("/profile", authHandlers.MiddlewareAuth(usersHandlers.GetProfile))
 	}
 
 	router.Mount("/v1", v1Router)
