@@ -250,10 +250,10 @@ func (ah *AuthHandlers) SendCode2Mail(ctx context.Context, email string) (string
 		return "", err
 	}
 
-	err = ah.sendEmail(email, code)
-	if err != nil {
-		return "", err
-	}
+	_ = ah.sendEmail(email, code)
+	// if err != nil {
+	// 	return "", err
+	// }
 	return code, nil
 }
 
