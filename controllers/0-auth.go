@@ -95,7 +95,7 @@ func (ah *AuthHandlers) MiddlewareAuth(handler authedHandler) http.HandlerFunc {
 // @Accept       json
 // @Produce      json
 // @Param request body views.SignInRequest true "LogIn data"
-// @Success      200  {object} views.ResponseMessage "OK"
+// @Success      200  {object} views.TokensResponse "OK"
 // @Failure   	 400  {object} views.ErrorResponse "Invalid Data"
 // @Failure   	 401  {object} views.ErrorResponse "wrong passwors"
 // @Failure   	 404  {object} views.ErrorResponse "Not Present"
@@ -147,14 +147,45 @@ func (ah *AuthHandlers) SignIn(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	code, err := ah.SendCode2Mail(r.Context(), signInReq.Email)
+	// code, err := ah.SendCode2Mail(r.Context(), signInReq.Email)
+	// if err != nil {
+	// 	views.RespondWithError(w, http.StatusInternalServerError, "Couldn't send code", err)
+	// 	return
+	// }
+
+	// views.RespondWithJSON(w, http.StatusOK, views.ResponseMessage{
+	// 	Message: fmt.Sprintf("code (%s) is sent", code),
+	// })
+
+	accessToken, err := makeJWT(
+		signInReq.Email,
+		ah.jwtSecret,
+		time.Hour*24,
+	)
 	if err != nil {
-		views.RespondWithError(w, http.StatusInternalServerError, "Couldn't send code", err)
+		views.RespondWithError(w, http.StatusInternalServerError, "Couldn't create access JWT", err)
 		return
 	}
 
-	views.RespondWithJSON(w, http.StatusOK, views.ResponseMessage{
-		Message: fmt.Sprintf("code (%s) is sent", code),
+	refreshToken, err := makeRefreshToken()
+	if err != nil {
+		views.RespondWithError(w, http.StatusInternalServerError, "Couldn't create refresh token", err)
+		return
+	}
+
+	err = ah.DB.CreateRefreshToken(r.Context(), database.CreateRefreshTokenParams{
+		Token:     refreshToken,
+		Email:     signInReq.Email,
+		ExpiresAt: time.Now().UTC().Add(time.Hour * 24 * 60).Format(time.RFC3339),
+	})
+	if err != nil {
+		views.RespondWithError(w, http.StatusInternalServerError, "Couldn't create refresh token", err)
+		return
+	}
+
+	views.RespondWithJSON(w, http.StatusOK, views.TokensResponse{
+		AccessToken:  accessToken,
+		RefreshToken: refreshToken,
 	})
 }
 

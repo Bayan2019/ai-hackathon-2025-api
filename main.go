@@ -94,7 +94,7 @@ func main() {
 		authHandlers := controllers.NewAuthHandlers(*configuration.ApiCfg)
 
 		v1Router.Post("/auth", authHandlers.SignIn)
-		v1Router.Patch("/auth", authHandlers.SignInCode)
+		// v1Router.Patch("/auth", authHandlers.SignInCode)
 
 		usersHandlers := controllers.NewUsersHandlers(*configuration.ApiCfg)
 
