@@ -217,7 +217,7 @@ func (ah *AuthHandlers) SignInCode(w http.ResponseWriter, r *http.Request) {
 
 	err = ah.DB.CreateRefreshToken(r.Context(), database.CreateRefreshTokenParams{
 		Token:     refreshToken,
-		Email:     signInReq.Code,
+		Email:     signInReq.Email,
 		ExpiresAt: time.Now().UTC().Add(time.Hour * 24 * 60).Format(time.RFC3339),
 	})
 	if err != nil {
