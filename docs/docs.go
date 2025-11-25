@@ -51,7 +51,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/views.ResponseMessage"
+                            "$ref": "#/definitions/views.TokensResponse"
                         }
                     },
                     "400": {
@@ -202,14 +202,6 @@ const docTemplate = `{
                 "message": {
                     "type": "string",
                     "example": "Phone number already registered"
-                }
-            }
-        },
-        "views.ResponseMessage": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
                 }
             }
         },

@@ -9,11 +9,6 @@ definitions:
         example: Phone number already registered
         type: string
     type: object
-  views.ResponseMessage:
-    properties:
-      message:
-        type: string
-    type: object
   views.SignInCodeRequest:
     properties:
       code:
@@ -107,7 +102,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/views.ResponseMessage'
+            $ref: '#/definitions/views.TokensResponse'
         "400":
           description: Invalid Data
           schema:
