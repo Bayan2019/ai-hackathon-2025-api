@@ -31,6 +31,15 @@ type RefreshToken struct {
 	RevokedAt sql.NullString
 }
 
+type Transaction struct {
+	CstDimID      sql.NullInt64
+	Transdatetime string
+	Transdate     string
+	Amount        int64
+	Direction     string
+	Target        interface{}
+}
+
 type User struct {
 	Email        string
 	CreatedAt    string
