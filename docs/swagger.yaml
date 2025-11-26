@@ -153,7 +153,9 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/views.Client'
+            items:
+              $ref: '#/definitions/views.Client'
+            type: array
         "401":
           description: No token Middleware
           schema:

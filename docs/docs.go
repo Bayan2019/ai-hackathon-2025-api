@@ -166,7 +166,10 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/views.Client"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/views.Client"
+                            }
                         }
                     },
                     "401": {
