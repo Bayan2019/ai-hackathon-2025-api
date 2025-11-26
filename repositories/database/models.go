@@ -8,6 +8,13 @@ import (
 	"database/sql"
 )
 
+type Client struct {
+	CstDimID  int64
+	FirstName string
+	LastName  string
+	Gender    string
+}
+
 type Code struct {
 	Email     string
 	CreatedAt string
