@@ -21,3 +21,4 @@ swag init && ./scripts/buildprod.sh
 - [Turso Cloud](https://turso.tech/)
 - [Generate Hash](https://bcrypt-generator.com/)
 
+
