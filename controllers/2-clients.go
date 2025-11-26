@@ -7,7 +7,7 @@ import (
 )
 
 // GetClients godoc
-// @Tags Users
+// @Tags Clients
 // @Summary      Get User profile
 // @Accept       json
 // @Produce      json
