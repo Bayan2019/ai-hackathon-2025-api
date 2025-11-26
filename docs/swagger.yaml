@@ -41,6 +41,19 @@ definitions:
       refresh_token:
         type: string
     type: object
+  views.Transaction:
+    properties:
+      amount:
+        type: integer
+      destination:
+        type: string
+      full_name_of_sender:
+        type: string
+      target:
+        type: integer
+      transdatetime:
+        type: string
+    type: object
   views.User:
     properties:
       email:
@@ -224,7 +237,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/views.Client'
+              $ref: '#/definitions/views.Transaction'
             type: array
         "401":
           description: No token Middleware

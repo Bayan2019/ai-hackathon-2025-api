@@ -279,7 +279,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/views.Client"
+                                "$ref": "#/definitions/views.Transaction"
                             }
                         }
                     },
@@ -365,6 +365,26 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "refresh_token": {
+                    "type": "string"
+                }
+            }
+        },
+        "views.Transaction": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "integer"
+                },
+                "destination": {
+                    "type": "string"
+                },
+                "full_name_of_sender": {
+                    "type": "string"
+                },
+                "target": {
+                    "type": "integer"
+                },
+                "transdatetime": {
                     "type": "string"
                 }
             }

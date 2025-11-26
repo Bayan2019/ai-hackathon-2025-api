@@ -12,7 +12,7 @@ import (
 // @Accept       json
 // @Produce      json
 // @Param Authorization header string true "Bearer AccessToken"
-// @Success      200  {array} views.Client "OK"
+// @Success      200  {array} views.Transaction "OK"
 // @Failure   	 401  {object} views.ErrorResponse "No token Middleware"
 // @Failure   	 404  {object} views.ErrorResponse "Not found User Middleware"
 // @Failure   	 500  {object} views.ErrorResponse "Couldn't Get user"
