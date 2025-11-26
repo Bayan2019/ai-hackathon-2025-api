@@ -136,6 +136,60 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/clients": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get User profile",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer AccessToken",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/views.Client"
+                        }
+                    },
+                    "401": {
+                        "description": "No token Middleware",
+                        "schema": {
+                            "$ref": "#/definitions/views.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found User Middleware",
+                        "schema": {
+                            "$ref": "#/definitions/views.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Couldn't Get user",
+                        "schema": {
+                            "$ref": "#/definitions/views.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/profile": {
             "get": {
                 "security": [
@@ -192,6 +246,23 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "views.Client": {
+            "type": "object",
+            "properties": {
+                "cst_dim_id": {
+                    "type": "integer"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                }
+            }
+        },
         "views.ErrorResponse": {
             "type": "object",
             "properties": {

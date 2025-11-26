@@ -99,6 +99,7 @@ func main() {
 		usersHandlers := controllers.NewUsersHandlers(*configuration.ApiCfg)
 
 		v1Router.Get("/profile", authHandlers.MiddlewareAuth(usersHandlers.GetProfile))
+		v1Router.Get("/clients", authHandlers.MiddlewareAuth(usersHandlers.GetClients))
 	}
 
 	router.Mount("/v1", v1Router)

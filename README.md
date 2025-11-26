@@ -4,6 +4,17 @@
 
 # AI Hackathon
 
+## `swag`
+
+[![Swagger](https://raw.githubusercontent.com/swagger-api/swagger.io/wordpress/images/assets/SW-logo-clr.png)](https://ai-hackathon-2025-api.onrender.com/swagger/index.html)
+
+```bash
+export PATH=$(go env GOPATH)/bin:$PATH
+```
+```bash
+swag init && ./scripts/buildprod.sh
+```
+
 ## References 
 
 <!-- - [](https://ai-hackathon-2025-api.onrender.com) -->
