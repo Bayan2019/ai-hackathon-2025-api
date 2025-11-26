@@ -100,6 +100,7 @@ func main() {
 
 		v1Router.Get("/profile", authHandlers.MiddlewareAuth(usersHandlers.GetProfile))
 		v1Router.Get("/clients", authHandlers.MiddlewareAuth(usersHandlers.GetClients))
+		v1Router.Get("/transactions", authHandlers.MiddlewareAuth(usersHandlers.GetTransactions))
 	}
 
 	router.Mount("/v1", v1Router)

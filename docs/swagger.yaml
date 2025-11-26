@@ -172,7 +172,7 @@ paths:
       - Bearer: []
       summary: Get User profile
       tags:
-      - Users
+      - Clients
   /v1/profile:
     get:
       consumes:
@@ -207,6 +207,42 @@ paths:
       summary: Get User profile
       tags:
       - Users
+  /v1/transactions:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer AccessToken
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/views.Client'
+            type: array
+        "401":
+          description: No token Middleware
+          schema:
+            $ref: '#/definitions/views.ErrorResponse'
+        "404":
+          description: Not found User Middleware
+          schema:
+            $ref: '#/definitions/views.ErrorResponse'
+        "500":
+          description: Couldn't Get user
+          schema:
+            $ref: '#/definitions/views.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Get User profile
+      tags:
+      - Transactions
 securityDefinitions:
   Bearer:
     description: Type "Bearer" followed by a space and JWT token.
