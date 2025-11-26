@@ -32,12 +32,12 @@ type RefreshToken struct {
 }
 
 type Transaction struct {
-	CstDimID      sql.NullInt64
+	CstDimID      int64
 	Transdatetime string
 	Transdate     string
 	Amount        int64
 	Direction     string
-	Target        interface{}
+	Target        int64
 }
 
 type User struct {
