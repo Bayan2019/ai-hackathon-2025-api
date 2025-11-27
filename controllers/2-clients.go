@@ -43,7 +43,7 @@ func (uh *UsersHandlers) GetClients(w http.ResponseWriter, r *http.Request, user
 // @Router       /v1/clients/{cst_dim_id} [get]
 // @Security Bearer
 func (uh *UsersHandlers) GetClient(w http.ResponseWriter, r *http.Request, user views.User) {
-	cstDimID, err := strconv.ParseInt(chi.URLParam(r, "cst_dim_id"), 10, 32)
+	cstDimID, err := strconv.ParseInt(chi.URLParam(r, "cst_dim_id"), 10, 64)
 	if err != nil {
 		views.RespondWithError(w, http.StatusBadRequest, "Invalid id", err) // 400
 		return
