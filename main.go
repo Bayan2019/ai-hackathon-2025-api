@@ -66,7 +66,7 @@ func main() {
 		fmt.Println(err.Error())
 	}
 
-	modelXml, err := ioutil.ReadFile("titanic_rf.pmml")
+	modelXml, err := ioutil.ReadFile("randomForest.pmml")
 	if err != nil {
 		log.Fatalf("Error reading PMML file: %v", err)
 	}
