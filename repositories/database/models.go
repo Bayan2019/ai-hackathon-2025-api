@@ -8,6 +8,27 @@ import (
 	"database/sql"
 )
 
+type Behavior struct {
+	CstDimID                  int64
+	Transdate                 string
+	MonthlyOsChanges          int64
+	MonthlyPhoneModelChanges  int64
+	LastPhoneModelCategorical string
+	LastOsCategorical         string
+	LoginsLast7Days           int64
+	LoginsLast30Days          int64
+	LoginFrequency7d          float64
+	FreqChange7dVsMean        float64
+	Logins7dOver30dRatio      float64
+	AvgLoginInterval30d       float64
+	StdLoginInterval30d       float64
+	VarLoginInterval30d       float64
+	EwmLoginInterval7d        float64
+	BurstinessLoginInterval   float64
+	FanoFactorLoginInterval   float64
+	ZscoreAvgLoginInterval7d  float64
+}
+
 type Client struct {
 	CstDimID  int64
 	FirstName string

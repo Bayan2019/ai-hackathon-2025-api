@@ -1,5 +1,59 @@
 basePath: /
 definitions:
+  database.Behavior:
+    properties:
+      avgLoginInterval30d:
+        format: float64
+        type: number
+      burstinessLoginInterval:
+        format: float64
+        type: number
+      cstDimID:
+        format: int64
+        type: integer
+      ewmLoginInterval7d:
+        format: float64
+        type: number
+      fanoFactorLoginInterval:
+        format: float64
+        type: number
+      freqChange7dVsMean:
+        format: float64
+        type: number
+      lastOsCategorical:
+        type: string
+      lastPhoneModelCategorical:
+        type: string
+      loginFrequency7d:
+        format: float64
+        type: number
+      logins7dOver30dRatio:
+        format: float64
+        type: number
+      loginsLast7Days:
+        format: int64
+        type: integer
+      loginsLast30Days:
+        format: int64
+        type: integer
+      monthlyOsChanges:
+        format: int64
+        type: integer
+      monthlyPhoneModelChanges:
+        format: int64
+        type: integer
+      stdLoginInterval30d:
+        format: float64
+        type: number
+      transdate:
+        type: string
+      varLoginInterval30d:
+        format: float64
+        type: number
+      zscoreAvgLoginInterval7d:
+        format: float64
+        type: number
+    type: object
   views.Client:
     properties:
       cst_dim_id:
@@ -13,6 +67,10 @@ definitions:
     type: object
   views.ClientDetailed:
     properties:
+      behaviors:
+        items:
+          $ref: '#/definitions/database.Behavior'
+        type: array
       cst_dim_id:
         type: integer
       first_name:

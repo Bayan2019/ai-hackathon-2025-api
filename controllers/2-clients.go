@@ -60,11 +60,18 @@ func (uh *UsersHandlers) GetClient(w http.ResponseWriter, r *http.Request, user 
 		return
 	}
 
+	behaviors, err := uh.DB.GetBehaviorsOfClient(r.Context(), cstDimID)
+	if err != nil {
+		views.RespondWithError(w, http.StatusInternalServerError, "couldn't get transactions", err)
+		return
+	}
+
 	views.RespondWithJSON(w, http.StatusOK, views.ClientDetailed{
 		FirstName:    client.FirstName,
 		LastName:     client.LastName,
 		CstDimID:     client.CstDimID,
 		Gender:       client.Gender,
 		Transactions: views.DatabaseGetTransactionsOfClientRows2viewTransactions(transactions),
+		Behaviors:    behaviors,
 	})
 }

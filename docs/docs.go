@@ -367,6 +367,80 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "database.Behavior": {
+            "type": "object",
+            "properties": {
+                "avgLoginInterval30d": {
+                    "type": "number",
+                    "format": "float64"
+                },
+                "burstinessLoginInterval": {
+                    "type": "number",
+                    "format": "float64"
+                },
+                "cstDimID": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "ewmLoginInterval7d": {
+                    "type": "number",
+                    "format": "float64"
+                },
+                "fanoFactorLoginInterval": {
+                    "type": "number",
+                    "format": "float64"
+                },
+                "freqChange7dVsMean": {
+                    "type": "number",
+                    "format": "float64"
+                },
+                "lastOsCategorical": {
+                    "type": "string"
+                },
+                "lastPhoneModelCategorical": {
+                    "type": "string"
+                },
+                "loginFrequency7d": {
+                    "type": "number",
+                    "format": "float64"
+                },
+                "logins7dOver30dRatio": {
+                    "type": "number",
+                    "format": "float64"
+                },
+                "loginsLast30Days": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "loginsLast7Days": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "monthlyOsChanges": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "monthlyPhoneModelChanges": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "stdLoginInterval30d": {
+                    "type": "number",
+                    "format": "float64"
+                },
+                "transdate": {
+                    "type": "string"
+                },
+                "varLoginInterval30d": {
+                    "type": "number",
+                    "format": "float64"
+                },
+                "zscoreAvgLoginInterval7d": {
+                    "type": "number",
+                    "format": "float64"
+                }
+            }
+        },
         "views.Client": {
             "type": "object",
             "properties": {
@@ -387,6 +461,12 @@ const docTemplate = `{
         "views.ClientDetailed": {
             "type": "object",
             "properties": {
+                "behaviors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/database.Behavior"
+                    }
+                },
                 "cst_dim_id": {
                     "type": "integer"
                 },

@@ -10,11 +10,12 @@ type Client struct {
 }
 
 type ClientDetailed struct {
-	CstDimID     int64         `json:"cst_dim_id"`
-	Gender       string        `json:"gender"`
-	FirstName    string        `json:"first_name"`
-	LastName     string        `json:"last_name"`
-	Transactions []Transaction `json:"transactions"`
+	CstDimID     int64               `json:"cst_dim_id"`
+	Gender       string              `json:"gender"`
+	FirstName    string              `json:"first_name"`
+	LastName     string              `json:"last_name"`
+	Transactions []Transaction       `json:"transactions"`
+	Behaviors    []database.Behavior `json:"behaviors"`
 }
 
 //// accommodating functions ////
