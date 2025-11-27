@@ -56,3 +56,45 @@ func (q *Queries) GetTransactions(ctx context.Context) ([]GetTransactionsRow, er
 	}
 	return items, nil
 }
+
+const getTransactionsOfClient = `-- name: GetTransactionsOfClient :many
+
+SELECT  transdatetime, amount, direction, target 
+    FROM transactions 
+WHERE cst_dim_id = ?
+`
+
+type GetTransactionsOfClientRow struct {
+	Transdatetime string
+	Amount        int64
+	Direction     string
+	Target        int64
+}
+
+func (q *Queries) GetTransactionsOfClient(ctx context.Context, cstDimID int64) ([]GetTransactionsOfClientRow, error) {
+	rows, err := q.db.QueryContext(ctx, getTransactionsOfClient, cstDimID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetTransactionsOfClientRow
+	for rows.Next() {
+		var i GetTransactionsOfClientRow
+		if err := rows.Scan(
+			&i.Transdatetime,
+			&i.Amount,
+			&i.Direction,
+			&i.Target,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}

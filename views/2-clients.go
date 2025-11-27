@@ -9,6 +9,14 @@ type Client struct {
 	LastName  string `json:"last_name"`
 }
 
+type ClientDetailed struct {
+	CstDimID     int64         `json:"cst_dim_id"`
+	Gender       string        `json:"gender"`
+	FirstName    string        `json:"first_name"`
+	LastName     string        `json:"last_name"`
+	Transactions []Transaction `json:"transactions"`
+}
+
 //// accommodating functions ////
 //// accommodating functions ////
 //// accommodating functions ////

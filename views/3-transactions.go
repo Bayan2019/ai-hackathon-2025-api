@@ -21,6 +21,23 @@ type Transaction struct {
 //// accommodating functions ////
 //// accommodating functions ////
 
+func databaseGetTransactionsOfClientRow2viewTransaction(dbT database.GetTransactionsOfClientRow) Transaction {
+	return Transaction{
+		Transdatetime: dbT.Transdatetime,
+		Amount:        dbT.Amount,
+		Destination:   dbT.Direction,
+		Target:        dbT.Target,
+	}
+}
+
+func DatabaseGetTransactionsOfClientRows2viewTransactions(dbTs []database.GetTransactionsOfClientRow) []Transaction {
+	transactions := []Transaction{}
+	for _, t := range dbTs {
+		transactions = append(transactions, databaseGetTransactionsOfClientRow2viewTransaction(t))
+	}
+	return transactions
+}
+
 func databaseGetTransactionsRow2viewTransaction(dbT database.GetTransactionsRow) Transaction {
 	return Transaction{
 		FullNameClient: dbT.FirstName.String + " " + dbT.LastName.String,
