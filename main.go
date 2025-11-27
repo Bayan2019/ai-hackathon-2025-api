@@ -112,12 +112,15 @@ func main() {
 		// v1Router.Patch("/auth", authHandlers.SignInCode)
 
 		usersHandlers := controllers.NewUsersHandlers(*configuration.ApiCfg)
-		transactionsHandlers := controllers.NewTransactionsHandlers(*configuration.ApiCfg)
 
 		v1Router.Get("/profile", authHandlers.MiddlewareAuth(usersHandlers.GetProfile))
 		v1Router.Get("/clients", authHandlers.MiddlewareAuth(usersHandlers.GetClients))
 		v1Router.Get("/clients/{cst_dim_id}", authHandlers.MiddlewareAuth(usersHandlers.GetClient))
+
+		transactionsHandlers := controllers.NewTransactionsHandlers(*configuration.ApiCfg)
+
 		v1Router.Get("/transactions", authHandlers.MiddlewareAuth(transactionsHandlers.GetTransactions))
+		v1Router.Post("/transactions", authHandlers.MiddlewareAuth(transactionsHandlers.GetProbability))
 	}
 
 	router.Mount("/v1", v1Router)
