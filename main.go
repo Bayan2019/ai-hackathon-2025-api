@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/xml"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -66,7 +65,7 @@ func main() {
 		fmt.Println(err.Error())
 	}
 
-	modelXml, err := ioutil.ReadFile("randomForest.pmml")
+	modelXml, err := os.ReadFile("randomForest.pmml")
 	if err != nil {
 		log.Fatalf("Error reading PMML file: %v", err)
 	}
