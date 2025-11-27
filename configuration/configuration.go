@@ -6,6 +6,8 @@ import (
 	"log"
 
 	"github.com/Bayan2019/ai-hackathon-2025-api/repositories/database"
+	"github.com/asafschers/goscore"
+
 	// _ "github.com/mattn/go-sqlite3"
 	_ "github.com/tursodatabase/libsql-client-go/libsql"
 )
@@ -18,6 +20,7 @@ type ApiConfiguration struct {
 	DB   *database.Queries
 	// Dir       string
 	JwtSecret string
+	Model     goscore.RandomForest
 }
 
 func Connect2DB(dbPath string) error {

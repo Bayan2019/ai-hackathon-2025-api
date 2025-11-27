@@ -357,6 +357,67 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Get Result",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer AccessToken",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Transaction data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/views.TransactionData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/views.ClassificationResult"
+                        }
+                    },
+                    "401": {
+                        "description": "No token Middleware",
+                        "schema": {
+                            "$ref": "#/definitions/views.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found User Middleware",
+                        "schema": {
+                            "$ref": "#/definitions/views.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Couldn't Get user",
+                        "schema": {
+                            "$ref": "#/definitions/views.ErrorResponse"
+                        }
+                    }
+                }
             }
         }
     },
@@ -432,6 +493,14 @@
                 "zscoreAvgLoginInterval7d": {
                     "type": "number",
                     "format": "float64"
+                }
+            }
+        },
+        "views.ClassificationResult": {
+            "type": "object",
+            "properties": {
+                "probability_of_fraud": {
+                    "type": "number"
                 }
             }
         },
@@ -544,6 +613,65 @@
                 },
                 "transdatetime": {
                     "type": "string"
+                }
+            }
+        },
+        "views.TransactionData": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "integer"
+                },
+                "avg_login_interval_30d": {
+                    "type": "number"
+                },
+                "burstiness_login_interval": {
+                    "type": "number"
+                },
+                "ewm_login_interval_7d": {
+                    "type": "number"
+                },
+                "fano_factor_login_interval": {
+                    "type": "number"
+                },
+                "flogins_7d_over_30d_ratio": {
+                    "type": "number"
+                },
+                "freq_change_7d_vs_mean": {
+                    "type": "number"
+                },
+                "last_os_categorical": {
+                    "type": "string"
+                },
+                "last_phone_model_categorical": {
+                    "type": "string"
+                },
+                "login_frequency_7d": {
+                    "type": "number"
+                },
+                "logins_last_30_days": {
+                    "type": "number"
+                },
+                "logins_last_7_days": {
+                    "type": "number"
+                },
+                "monthly_os_changes": {
+                    "type": "integer"
+                },
+                "monthly_phone_model_changes": {
+                    "type": "integer"
+                },
+                "std_login_interval_30d": {
+                    "type": "number"
+                },
+                "transdate": {
+                    "type": "string"
+                },
+                "var_login_interval_30d": {
+                    "type": "number"
+                },
+                "zscore_avg_login_interval_7d": {
+                    "type": "number"
                 }
             }
         },

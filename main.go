@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/xml"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -9,6 +11,7 @@ import (
 
 	"github.com/Bayan2019/ai-hackathon-2025-api/configuration"
 	"github.com/Bayan2019/ai-hackathon-2025-api/controllers"
+	"github.com/asafschers/goscore"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
 	"github.com/joho/godotenv"
@@ -38,6 +41,7 @@ import (
 // @name Authorization
 // @description Type "Bearer" followed by a space and JWT token.
 func main() {
+
 	err := godotenv.Load(".env")
 	if err != nil {
 		fmt.Printf("warning: assuming default configuration. .env unreadable: %v\n", err)
@@ -62,12 +66,23 @@ func main() {
 		fmt.Println(err.Error())
 	}
 
+	modelXml, err := ioutil.ReadFile("titanic_rf.pmml")
+	if err != nil {
+		log.Fatalf("Error reading PMML file: %v", err)
+	}
+	var model goscore.RandomForest // Or other model type depending on your PMML
+	if err := xml.Unmarshal(modelXml, &model); err != nil {
+		log.Fatalf("Error unmarshaling PMML: %v", err)
+	}
+
 	if configuration.ApiCfg != nil {
 		configuration.ApiCfg.JwtSecret = jwtSecret
+		configuration.ApiCfg.Model = model
 	} else {
 		fmt.Println("No DATABASE_URL")
 		configuration.ApiCfg = &configuration.ApiConfiguration{
 			JwtSecret: jwtSecret,
+			Model:     model,
 		}
 	}
 
@@ -97,11 +112,12 @@ func main() {
 		// v1Router.Patch("/auth", authHandlers.SignInCode)
 
 		usersHandlers := controllers.NewUsersHandlers(*configuration.ApiCfg)
+		transactionsHandlers := controllers.NewTransactionsHandlers(*configuration.ApiCfg)
 
 		v1Router.Get("/profile", authHandlers.MiddlewareAuth(usersHandlers.GetProfile))
 		v1Router.Get("/clients", authHandlers.MiddlewareAuth(usersHandlers.GetClients))
 		v1Router.Get("/clients/{cst_dim_id}", authHandlers.MiddlewareAuth(usersHandlers.GetClient))
-		v1Router.Get("/transactions", authHandlers.MiddlewareAuth(usersHandlers.GetTransactions))
+		v1Router.Get("/transactions", authHandlers.MiddlewareAuth(transactionsHandlers.GetTransactions))
 	}
 
 	router.Mount("/v1", v1Router)
