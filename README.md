@@ -4,6 +4,17 @@
 
 # AI Hackathon
 
+### Sample of Authentication options
+
+Для `Amina` логина используй:
+* логин: `amina.yes03@gmail.com`
+* пароль: `hackathon`
+
+
+Для `Bayan` логина используй:
+* логин: `sapar1986@yahoo.com`
+* пароль: `hackathon`
+
 ## `swag`
 
 [![Swagger](https://raw.githubusercontent.com/swagger-api/swagger.io/wordpress/images/assets/SW-logo-clr.png)](https://ai-hackathon-2025-api.onrender.com/swagger/index.html)
