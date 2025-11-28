@@ -626,7 +626,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "amount": {
-                    "type": "integer"
+                    "type": "number"
                 },
                 "avg_login_interval_30d": {
                     "type": "number"
@@ -638,9 +638,6 @@ const docTemplate = `{
                     "type": "number"
                 },
                 "fano_factor_login_interval": {
-                    "type": "number"
-                },
-                "flogins_7d_over_30d_ratio": {
                     "type": "number"
                 },
                 "freq_change_7d_vs_mean": {
@@ -655,6 +652,9 @@ const docTemplate = `{
                 "login_frequency_7d": {
                     "type": "number"
                 },
+                "logins_7d_over_30d_ratio": {
+                    "type": "number"
+                },
                 "logins_last_30_days": {
                     "type": "number"
                 },
@@ -662,10 +662,10 @@ const docTemplate = `{
                     "type": "number"
                 },
                 "monthly_os_changes": {
-                    "type": "integer"
+                    "type": "number"
                 },
                 "monthly_phone_model_changes": {
-                    "type": "integer"
+                    "type": "number"
                 },
                 "std_login_interval_30d": {
                     "type": "number"
