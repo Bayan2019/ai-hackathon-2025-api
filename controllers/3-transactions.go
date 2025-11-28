@@ -87,44 +87,54 @@ func (uh *TransactionsHandlers) GetProbability(w http.ResponseWriter, r *http.Re
 		"fano_factor_login_interval":   td.FanoFactorLoginInterval,
 		"zscore_avg_login_interval_7d": td.ZscoreAvgLoginInterval7d,
 		"hour":                         td.Transdate.Hour(),
-		"GIONEE":                       (td.LastPhoneModelCategorical == "GIONEE"),
-		"Google":                       (td.LastPhoneModelCategorical == "Google"),
-		"HONOR":                        (td.LastPhoneModelCategorical == "HONOR"),
-		"HUAWEI":                       (td.LastPhoneModelCategorical == "HUAWEI"),
-		"Honor":                        (td.LastPhoneModelCategorical == "Honor"),
-		"Huawei":                       (td.LastPhoneModelCategorical == "Huawei"),
-		"Meizu":                        (td.LastPhoneModelCategorical == "Meizu"),
-		"Motorola":                     (td.LastPhoneModelCategorical == "Motorola"),
-		"OPPO":                         (td.LastPhoneModelCategorical == "OPPO"),
-		"OnePlus":                      (td.LastPhoneModelCategorical == "OnePlus"),
-		"Oppo":                         (td.LastPhoneModelCategorical == "Oppo"),
-		"Realme":                       (td.LastPhoneModelCategorical == "Realme"),
-		"Samsung":                      (td.LastPhoneModelCategorical == "Samsung"),
-		"TECNO":                        (td.LastPhoneModelCategorical == "TECNO"),
-		"Tecno":                        (td.LastPhoneModelCategorical == "Tecno"),
-		"Vivo":                         (td.LastPhoneModelCategorical == "Vivo"),
-		"Xiaomi":                       (td.LastPhoneModelCategorical == "Xiaomi"),
-		"iPhone":                       (td.LastPhoneModelCategorical == "iPhone"),
-		"implyForteApp":                (td.LastPhoneModelCategorical == "implyForteApp"),
-		"x":                            (td.LastPhoneModelCategorical == "HONOR"),
-		"iOS":                          (td.LastOsCategorical == "iOS"),
-		"mib":                          (td.LastOsCategorical == "mib"),
-		"mibWebv3":                     (td.LastOsCategorical == "mibWebv3"),
-		"year":                         td.Transdate.Year(),
-		"month":                        td.Transdate.Month(),
-		"day":                          td.Transdate.Day(),
-		"dayofweek":                    td.Transdate.Weekday(),
-		"timestamp_unix":               td.Transdate.UnixNano(),
+		"GIONEE":                       bool2float(td.LastPhoneModelCategorical == "GIONEE"),
+		"Google":                       bool2float(td.LastPhoneModelCategorical == "Google"),
+		"HONOR":                        bool2float(td.LastPhoneModelCategorical == "HONOR"),
+		"HUAWEI":                       bool2float(td.LastPhoneModelCategorical == "HUAWEI"),
+		"Honor":                        bool2float(td.LastPhoneModelCategorical == "Honor"),
+		"Huawei":                       bool2float(td.LastPhoneModelCategorical == "Huawei"),
+		"Meizu":                        bool2float(td.LastPhoneModelCategorical == "Meizu"),
+		"Motorola":                     bool2float(td.LastPhoneModelCategorical == "Motorola"),
+		"OPPO":                         bool2float(td.LastPhoneModelCategorical == "OPPO"),
+		"OnePlus":                      bool2float(td.LastPhoneModelCategorical == "OnePlus"),
+		"Oppo":                         bool2float(td.LastPhoneModelCategorical == "Oppo"),
+		"Realme":                       bool2float(td.LastPhoneModelCategorical == "Realme"),
+		"Samsung":                      bool2float(td.LastPhoneModelCategorical == "Samsung"),
+		"TECNO":                        bool2float(td.LastPhoneModelCategorical == "TECNO"),
+		"Tecno":                        bool2float(td.LastPhoneModelCategorical == "Tecno"),
+		"Vivo":                         bool2float(td.LastPhoneModelCategorical == "Vivo"),
+		"Xiaomi":                       bool2float(td.LastPhoneModelCategorical == "Xiaomi"),
+		"iPhone":                       bool2float(td.LastPhoneModelCategorical == "iPhone"),
+		"implyForteApp":                bool2float(td.LastPhoneModelCategorical == "implyForteApp"),
+		"x":                            bool2float(td.LastPhoneModelCategorical == "HONOR"),
+		"iOS":                          bool2float(td.LastOsCategorical == "iOS"),
+		"mib":                          bool2float(td.LastOsCategorical == "mib"),
+		"mibWebv3":                     bool2float(td.LastOsCategorical == "mibWebv3"),
+		"year":                         float64(td.Transdate.Year()),
+		"month":                        float64(td.Transdate.Month()),
+		"day":                          float64(td.Transdate.Day()),
+		"dayofweek":                    float64(td.Transdate.Weekday()),
+		"timestamp_unix":               float64(td.Transdate.UnixNano()),
 	}
+	// fmt.Println(uh.Model.Trees)
 
 	// Score the features
-	score, err := uh.Model.Score(features, "target") // Example: score for class "1"
+	score, err := uh.Model.Score(features, "1") // Example: score for class "1"
+	// score, err := uh.Model.ScoreConcurrently(features)
 	if err != nil {
 		views.RespondWithError(w, http.StatusInternalServerError, "Error getting score JSON for TransactionData", err)
 		return
 	}
+	// fmt.Println(score)
 	// log.Printf("Prediction score for class 1: %f", score)
 	views.RespondWithJSON(w, http.StatusOK, views.ClassificationResult{
 		ProbabilityOfFraud: score,
 	})
+}
+
+func bool2float(b bool) float64 {
+	if b {
+		return 1.0
+	}
+	return 0.0
 }

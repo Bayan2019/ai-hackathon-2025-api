@@ -19,17 +19,17 @@ type ClassificationResult struct {
 }
 
 type TransactionData struct {
-	Amount                    int64     `json:"amount"`
+	Amount                    float64   `json:"amount"`
 	Transdate                 time.Time `json:"transdate"`
 	LastPhoneModelCategorical string    `json:"last_phone_model_categorical"`
 	LastOsCategorical         string    `json:"last_os_categorical"`
-	MonthlyOsChanges          int32     `json:"monthly_os_changes"`
-	MonthlyPhoneModelChanges  int32     `json:"monthly_phone_model_changes"`
+	MonthlyOsChanges          float64   `json:"monthly_os_changes"`
+	MonthlyPhoneModelChanges  float64   `json:"monthly_phone_model_changes"`
 	LoginsLast7Days           float64   `json:"logins_last_7_days"`
 	LoginsLast30Days          float64   `json:"logins_last_30_days"`
 	LoginFrequency7D          float64   `json:"login_frequency_7d"`
 	FreqDhange7DvsMean        float64   `json:"freq_change_7d_vs_mean"`
-	Logins7DOver30DRatio      float64   `json:"flogins_7d_over_30d_ratio"`
+	Logins7DOver30DRatio      float64   `json:"logins_7d_over_30d_ratio"`
 	AvgLoginInterval30d       float64   `json:"avg_login_interval_30d"`
 	StdLoginInterval30d       float64   `json:"std_login_interval_30d"`
 	VarLoginInterval30d       float64   `json:"var_login_interval_30d"`
